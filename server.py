@@ -9,58 +9,30 @@ client.
 
 """
 
-
-from spyne import Application, rpc,Mandatory as M, ServiceBase,Array, Iterable, Integer, Unicode,String,TTableModel, Service, ResourceNotFoundError, UnsignedInteger32
-from spyne.util import memoize
+from spyne import Application, ResourceNotFoundError
 from spyne.protocol.soap import Soap11
 from spyne.server.wsgi import WsgiApplication
+from spyne.error import InternalError
+from spyne.model.fault import Fault
 
-from sqlalchemy import MetaData, create_engine
-
+from sqlalchemy import create_engine
+from sqlalchemy.orm.exc import NoResultFound
+from spyne.model.complex import ComplexModelBase, ComplexModelMeta
+from sqlalchemy import MetaData
 from sqlalchemy.orm import sessionmaker
 
-class CustomerService(ServiceBase):
-    @rpc(String, String, _returns=Iterable(Unicode))
-    def customer_create(ctx, name, family):
-        """Docstrings for service methods appear as documentation in the wsdl.
+"""
 
-        @param name the customer name
-        @param family the customer family
-        @param national_code the customer national_code
-        @param father_name the customer father_name
-        @param certificate_number the customer card_number
-        @param bithday the customer birthday
-        @param address the customer address
-        @return the completed True
-        """
+config database 
 
-        
-        yield u'Hello, %s  ' % name+family
+"""
+from app.services import CustomerService
 
-    def customer_list(ctx):
-        """Docstrings for service methods appear as documentation in the wsdl.
-
-        @return the completed array
-        """
-
-
-        yield u'custoemr list, %s'
-
-
-
-
-
-
-
-
-
-application = Application([CustomerService], 'spyne.examples.hello.soap',
+application = Application([CustomerService], 'python.soap.example',
                           in_protocol=Soap11(validator='lxml'),
                           out_protocol=Soap11())
 
-
 wsgi_application = WsgiApplication(application)
-
 
 if __name__ == '__main__':
     import logging
@@ -72,9 +44,5 @@ if __name__ == '__main__':
 
     logging.info("listening to http://127.0.0.1:8000")
     logging.info("wsdl is at: http://localhost:8000/?wsdl")
-
-
-
     server = make_server('0.0.0.0', 8000, wsgi_application)
     server.serve_forever()
-
