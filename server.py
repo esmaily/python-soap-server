@@ -12,21 +12,14 @@ client.
 from spyne import Application, ResourceNotFoundError
 from spyne.protocol.soap import Soap11
 from spyne.server.wsgi import WsgiApplication
-from spyne.error import InternalError
-from spyne.model.fault import Fault
+from app.services import CustomerService
 
-from sqlalchemy import create_engine
-from sqlalchemy.orm.exc import NoResultFound
-from spyne.model.complex import ComplexModelBase, ComplexModelMeta
-from sqlalchemy import MetaData
-from sqlalchemy.orm import sessionmaker
 
 """
 
 config database 
 
 """
-from app.services import CustomerService
 
 application = Application([CustomerService], 'python.soap.example',
                           in_protocol=Soap11(validator='lxml'),
