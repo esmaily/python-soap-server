@@ -1,8 +1,6 @@
-# from spyne import Unicode
-from spyne.model.complex import ComplexModelBase, ComplexModelMeta, Array
-from spyne.model.primitive import UnsignedInteger32, Unicode
+from spyne import Unicode, ComplexModel, UnsignedInteger32
+from spyne.model.complex import ComplexModelBase, ComplexModelMeta, Array, Iterable
 from sqlalchemy import MetaData
-import sqlalchemy
 
 
 class TableModel(ComplexModelBase):
@@ -10,27 +8,38 @@ class TableModel(ComplexModelBase):
     __metadata__ = MetaData()
 
 
-class Service(TableModel):
-    __tablename__ = 'service'
-    __namespace__ = 'spyne.examples.customer_manager'
-    __table_args__ = {"sqlite_autoincrement": True}
-    id = UnsignedInteger32(pk=True)
+class ServiceModel(ComplexModel):
+    uid = UnsignedInteger32(pk=True)
     name = Unicode(150)
     number = Unicode(200)
+    customer_id = Unicode(200)
+
+    def __init__(self, uid, name, number, customer_id):
+        self.uid = uid
+        self.name = name
+        self.number = number
+        self.customer_id = customer_id
 
 
-class Customer(TableModel):
-    __tablename__ = 'customer'
-    __namespace__ = 'spyne.examples.customer_manager'
-    __table_args__ = {"sqlite_autoincrement": True}
-
-    # mapper_registry.metadata
-    id = UnsignedInteger32(pk=True)
-    first_name = Unicode(150, min_len=4, pattern='[a-z0-9.]+')
-    last_name = Unicode(150)
+class CustomerModel(ComplexModel):
+    uid = UnsignedInteger32(pk=True)
+    name = Unicode(150, min_len=4, pattern='[a-z0-9.]+')
+    family = Unicode(150)
     national_code = Unicode(10)
     father_name = Unicode(150)
     certificate_number = Unicode(10)
     birthday = Unicode(15)
     address = Unicode(250)
-    # services = Array(Service).store_as('table')
+    # services = Array(ServiceModel).store_as('table')
+    services = Iterable(ServiceModel)
+
+    def __init__(self, uid, name, family, national_code, father_name, certificate_number, birthday, address, services):
+        self.uid = uid
+        self.name = name
+        self.family = family
+        self.national_code = national_code
+        self.father_name = father_name
+        self.certificate_number = certificate_number
+        self.birthday = birthday
+        self.address = address
+        self.services = services
