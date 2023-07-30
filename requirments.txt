@@ -1,5 +1,6 @@
-asgiref==3.7.2
-coverage==7.2.7
-Django==4.2.3
-sqlparse==0.4.4
+greenlet==2.0.2
+lxml==4.9.3
+pytz==2023.3
+spyne==2.14.0
+SQLAlchemy==2.0.19
 typing_extensions==4.7.1
