@@ -27,7 +27,7 @@ class CustomerRepository:
         data = self._raw_get_all()
         indices = [index for (index, item) in enumerate(data["customers"]) if item["uid"] == int(customer_id)]
         if not indices:
-            return False
+            return None
         customer = data["customers"][indices[0]]
         cm = CustomerModel(**customer)
         cm.services = list(map(lambda item: ServiceModel(**item), customer["services"]))
@@ -64,7 +64,7 @@ class ServiceRepository:
         data = self._raw_get_all()
         indices = [index for (index, item) in enumerate(data["customers"]) if item["uid"] == int(customer_id)]
         if not indices:
-            return False
+            return []
         customer = data["customers"][indices[0]]
         services = list(map(lambda item: ServiceModel(**item), customer["services"]))
         return services
