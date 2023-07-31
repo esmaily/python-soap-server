@@ -53,7 +53,6 @@ class CustomerService(ServiceBase):
             @return the completed Customer Object
          """
 
-
         payload = {
             "name": name,
             "family": family,
@@ -66,7 +65,7 @@ class CustomerService(ServiceBase):
         }
 
         validator = CustomerCreateValidation()
-        validator.is_valid(payload=payload)
+        validator.is_valid(payload)
         customer = customer_repo.store(payload)
 
         return customer
@@ -96,8 +95,12 @@ class CustomerService(ServiceBase):
             "name": name,
             "number": number
         }
+        customer = customer_repo.get_by_id(int(customer_id))
         services = service_repo.get_service_by_customer(customer_id)
         validator = ServiceCreateValidation()
-        validator.is_valid(payload={payload})
+        validator.is_valid({
+            "services": services,
+            "customer": customer
+        })
         service = service_repo.store(payload)
         return service
