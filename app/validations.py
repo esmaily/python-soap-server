@@ -2,7 +2,7 @@ from app.core_validators import (
     BirthdayFormatValidator,
     BirthdayCheckAdultValidator,
     NationalCodeValidator,
-    CustomerExistLimitValidator,
+    CustomerExistsValidator,
     CustomerServiceLimitValidator)
 
 
@@ -20,7 +20,7 @@ class CustomerCreateValidation:
 
 class ServiceCreateValidation:
     def __init__(self):
-        self.customer_exist_validator = CustomerExistLimitValidator()
+        self.customer_exist_validator = CustomerExistsValidator()
         self.service_validator = CustomerServiceLimitValidator()
 
     def is_valid(self, payload):
