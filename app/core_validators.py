@@ -68,10 +68,10 @@ class BirthdayCheckAdultValidator(AbstractValidator):
             return super().validate(request)
 
 
-class CustomerExistLimitValidator(AbstractValidator):
+class CustomerExistsValidator(AbstractValidator):
 
     def validate(self, request: Any) -> str:
-        if len(request["services"]) >= 10:
+        if not request["customer"]:
             raise ValidationError("customer not exists")
         else:
             return super().validate(request)
