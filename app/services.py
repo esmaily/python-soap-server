@@ -1,4 +1,4 @@
-from spyne import Application, rpc, ServiceBase, Iterable, Integer, Unicode, ComplexModel, Array, String
+from spyne import rpc, ServiceBase, Unicode, Array
 
 from .repository import CustomerRepository, ServiceRepository
 from .models import CustomerModel, ServiceModel
@@ -51,6 +51,10 @@ class CustomerService(ServiceBase):
 
             @return the completed Customer Object
          """
+        from app.validations import CustomerValidation
+
+        # if len(national_code) != 10:
+        #     raise ValidationError("national code must be 10 length")
 
         payload = {
             "name": name,
@@ -62,6 +66,9 @@ class CustomerService(ServiceBase):
             "address": address,
             "services": []
         }
+
+        customer_validate = CustomerValidation()
+        customer_validate.is_valid(payload=payload)
         customer = customer_repo.store(payload)
 
         return customer
@@ -91,5 +98,6 @@ class CustomerService(ServiceBase):
             "name": name,
             "number": number
         }
+
         service = service_repo.store(payload)
         return service
