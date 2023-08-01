@@ -14,7 +14,7 @@ class CustomerService(ServiceBase):
     def __init__(ctx):
         pass
 
-    @rpc(Unicode, _returns=Array(CustomerModel))
+    @rpc(Unicode(values=["ASK", "DESC"]), _returns=Array(CustomerModel))
     def customer_get_list(ctx, order_by="ASK"):
         """Docstrings for customer service in the wsdl.
 
@@ -38,7 +38,7 @@ class CustomerService(ServiceBase):
 
         # yield u'ds'
 
-    @rpc(Unicode, Unicode, Unicode, Unicode, Unicode, Unicode, Unicode, _returns=CustomerModel)
+    @rpc(Unicode(), Unicode, Unicode(max_len=10), Unicode, Unicode, Unicode, Unicode, _returns=CustomerModel)
     def customer_create(ctx, name, family, national_code, father_name, certificate_number, birthday, address):
         """Docstrings for create customer   in the wsdl.
 
@@ -80,7 +80,7 @@ class CustomerService(ServiceBase):
         items = service_repo.get_service_by_customer(customer_id)
         return items
 
-    @rpc(Unicode, Unicode, Unicode, _returns=ServiceModel)
+    @rpc(Unicode, Unicode(max_len=150), Unicode(max_len=11), _returns=ServiceModel)
     def customer_create_service(ctx, customer_id, name, number):
         """Docstrings for customer services list by id in the wsdl.
 
