@@ -18,13 +18,13 @@ class CustomerRepository:
             customers.reverse()
         return customers
 
-    def _raw_get_all(self) -> dict:
+    def __raw_get_all(self):
         with open(self.db_path) as json_file:
             data = json.load(json_file)
         return data
 
-    def get_by_id(self, customer_id: int) -> dict:
-        data = self._raw_get_all()
+    def get_by_id(self, customer_id: int) -> object:
+        data = self.__raw_get_all()
         indices = [index for (index, item) in enumerate(data["customers"]) if item["uid"] == int(customer_id)]
         if not indices:
             return None
@@ -33,8 +33,8 @@ class CustomerRepository:
         cm.services = list(map(lambda item: ServiceModel(**item), customer["services"]))
         return cm
 
-    def store(self, customer: dict) -> bool:
-        data = self._raw_get_all()
+    def store(self, customer: dict) -> object:
+        data = self.__raw_get_all()
         customer["uid"] = len(data["customers"]) + 1
         data["customers"].append(customer)
         with open(self.db_path, 'w') as outfile:
@@ -60,7 +60,7 @@ class ServiceRepository:
             data = json.load(json_file)
         return data
 
-    def get_service_by_customer(self, customer_id: dict) -> bool:
+    def get_service_by_customer(self, customer_id: int) -> list:
         data = self._raw_get_all()
         indices = [index for (index, item) in enumerate(data["customers"]) if item["uid"] == int(customer_id)]
         if not indices:
@@ -69,9 +69,7 @@ class ServiceRepository:
         services = list(map(lambda item: ServiceModel(**item), customer["services"]))
         return services
 
-        return ServiceModel(**service)
-
-    def store(self, service: dict) -> bool:
+    def store(self, service: dict) -> object:
         data = self._raw_get_all()
         indices = [index for (index, item) in enumerate(data["customers"]) if
                    item["uid"] == int(service["customer_id"])]
