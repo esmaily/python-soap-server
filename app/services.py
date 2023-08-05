@@ -1,8 +1,10 @@
-from spyne import rpc, ServiceBase, Unicode, Array
+from spyne import Array, ServiceBase, Unicode, rpc
 
-from .repository import CustomerRepository, ServiceRepository
-from .models import CustomerModel, ServiceModel
 from app.validations import CustomerCreateValidation, ServiceCreateValidation
+
+from .models import CustomerModel, ServiceModel
+from .repository import CustomerRepository, ServiceRepository
+
 
 FILEPATH = "db.json"
 

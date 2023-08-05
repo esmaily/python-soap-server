@@ -1,5 +1,10 @@
-from spyne import Unicode, ComplexModel, UnsignedInteger32
-from spyne.model.complex import ComplexModelBase, ComplexModelMeta, Array, Iterable
+from spyne import ComplexModel, Unicode, UnsignedInteger32
+from spyne.model.complex import (
+    Array,
+    ComplexModelBase,
+    ComplexModelMeta,
+    Iterable,
+)
 from sqlalchemy import MetaData
 
 

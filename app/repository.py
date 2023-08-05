@@ -5,7 +5,7 @@ from .models import CustomerModel, ServiceModel
 
 class CustomerRepository:
     def __init__(self, db_path: str):
-        self.db_path = db_path
+        self.db_path: str = db_path
 
     def get_all(self, order_by="ASK") -> list:
         with open(self.db_path) as json_file:
@@ -45,7 +45,7 @@ class CustomerRepository:
 
 class ServiceRepository:
     def __init__(self, db_path: str):
-        self.db_path = db_path
+        self.db_path: str = db_path
 
     def get_all(self, order_by="ASK") -> list:
         with open(self.db_path) as json_file:
