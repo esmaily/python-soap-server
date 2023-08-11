@@ -16,11 +16,7 @@ from spyne.server.wsgi import WsgiApplication
 from app.services import CustomerService
 
 
-"""
 
-config database 
-
-"""
 
 application = Application([CustomerService], 'python.soap.example',
                           in_protocol=Soap11(validator='lxml'),
