@@ -1,50 +1,58 @@
-from spyne import ComplexModel, Unicode, UnsignedInteger32
-from spyne.model.complex import (
-    Array,
-    ComplexModelBase,
-    ComplexModelMeta,
-    Iterable,
-)
-from sqlalchemy import MetaData
+from sqlalchemy import MetaData, Integer, String, Column, DateTime, Text, Date, ForeignKey
+from sqlalchemy.orm import declarative_base, relationship, backref
+
+from datetime import datetime
+
+BaseModel = declarative_base()
 
 
-class TableModel(ComplexModelBase):
-    __metaclass__ = ComplexModelMeta
-    __metadata__ = MetaData()
+class ServiceModel(BaseModel):
+    __tablename__ = 'services'
+
+    def __str__(self):
+        return f"{self.id}-{self.name}"
+
+    # def __
+    id = Column(Integer(), primary_key=True)
+    customer_id = Column(Integer(), ForeignKey('customers.id'))
+    name = Column(String(100), nullable=False)
+    number = Column(String(12), nullable=False)
+    created_on = Column(DateTime(), default=datetime.now)
+    updated_on = Column(DateTime(), default=datetime.now, onupdate=datetime.now)
+
+    # def fields(self):
+    #     return self.
 
 
-class ServiceModel(ComplexModel):
-    uid = UnsignedInteger32(pk=True)
-    name = Unicode(150)
-    number = Unicode(200)
-    customer_id = Unicode(200)
+class CustomerModel(BaseModel):
+    __tablename__ = 'customers'
 
-    def __init__(self, uid, name, number, customer_id):
-        self.uid = uid
-        self.name = name
-        self.number = number
-        self.customer_id = customer_id
+    def __repr__(self):
+        return f"id:{self.id}"
 
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "family": self.family,
+            "national_code": self.national_code,
+            "father_name": self.father_name,
+            "certificate_number": self.certificate_number,
+            "birthday": self.birthday,
+            "address": self.address,
+            "services": self.services,
+            "created_on": self.created_on,
+            "updated_on": self.updated_on,
+        }
 
-class CustomerModel(ComplexModel):
-    uid = UnsignedInteger32(pk=True)
-    name = Unicode(150, min_len=4, pattern='[a-z0-9.]+')
-    family = Unicode(150)
-    national_code = Unicode(10)
-    father_name = Unicode(150)
-    certificate_number = Unicode(10)
-    birthday = Unicode(15)
-    address = Unicode(250)
-    # services = Array(ServiceModel).store_as('table')
-    services = Iterable(ServiceModel)
-
-    def __init__(self, uid, name, family, national_code, father_name, certificate_number, birthday, address, services):
-        self.uid = uid
-        self.name = name
-        self.family = family
-        self.national_code = national_code
-        self.father_name = father_name
-        self.certificate_number = certificate_number
-        self.birthday = birthday
-        self.address = address
-        self.services = services
+    id = Column(Integer(), primary_key=True)
+    name = Column(String(100), nullable=False)
+    family = Column(String(100), nullable=False)
+    national_code = Column(String(10), nullable=False)
+    father_name = Column(String(100), nullable=False)
+    certificate_number = Column(String(100), nullable=False)
+    birthday = Column(DateTime(), nullable=True)
+    address = Column(Text)
+    services = relationship('ServiceModel', backref='customer')
+    created_on = Column(DateTime(), default=datetime.now)
+    updated_on = Column(DateTime(), default=datetime.now, onupdate=datetime.now)
