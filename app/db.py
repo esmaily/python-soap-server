@@ -1,7 +1,13 @@
+import os
+from decouple import Config, RepositoryEnv
+
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
 from sqlalchemy.engine import URL
-from .models import BaseModel
+from app.models import BaseModel
+
+env = Config(RepositoryEnv(f"{os.path.abspath(os.path.dirname(__name__))}/.env"))
+
 
 """
 
@@ -17,11 +23,11 @@ class Database:
         self.engine = None
 
         self.db_url = URL.create(
-            drivername="postgresql",
-            username="myuser",
-            password="mypass",
-            host="localhost",
-            database="pysoap"
+            drivername=env.get("DB_DRIVER"),
+            username=env.get("DB_USER"),
+            password=env.get("DB_PASS"),
+            host=env.get("DB_HOST"),
+            database=env.get("DB_NAME")
         )
         self.connect()
 
