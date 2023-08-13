@@ -50,8 +50,8 @@ class ServiceModel(BaseModel):
             "customer_id": self.customer_id,
             "name": self.name,
             "number": self.number,
-            "created_on": self.created_on,
-            "updated_on": self.updated_on,
+            "created_on": self.created_on.strftime("%Y-%m-%d %H:%M:%S"),
+            "updated_on": self.updated_on.strftime("%Y-%m-%d %H:%M:%S"),
         }
 
 
@@ -116,9 +116,9 @@ class CustomerModel(BaseModel):
             "national_code": self.national_code,
             "father_name": self.father_name,
             "certificate_number": self.certificate_number,
-            "birthday": self.birthday,
+            "birthday": self.birthday.strftime("%Y-%m-%d"),
             "address": self.address,
             "services": self.services,
-            "created_on": self.created_on,
-            "updated_on": self.updated_on,
+            "created_on": self.created_on.strftime("%Y-%m-%d %H:%M:%S"),
+            "updated_on": self.updated_on.strftime("%Y-%m-%d %H:%M:%S"),
         }
