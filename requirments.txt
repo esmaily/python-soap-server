@@ -4,4 +4,5 @@ pytz==2023.3
 spyne==2.14.0
 SQLAlchemy==2.0.19
 typing_extensions==4.7.1
-psycopg2==2.9.7
+psycopg2-binary==2.9.7
+python-decouple==3.8
