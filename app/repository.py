@@ -1,8 +1,25 @@
 import json
-
+from abc import ABC
 from app.schemas import CustomerSchema, ServiceSchema
 from app.models import CustomerModel, ServiceModel
 from app.db import session
+
+
+class Storage(ABC):
+    def get_all(self, order_by: str):
+        pass
+
+    def get_by_id(self, model_id: int):
+        pass
+
+    def create(self, model_id: int):
+        pass
+
+    def update(self, model_id: int, data: dict):
+        pass
+
+    def delete(self, model_id: int):
+        pass
 
 
 class JsonDB:
@@ -46,18 +63,33 @@ class JsonDB:
 
 
 class PostgresDB:
-    def __init__(self, model: CustomerModel, schema: CustomerSchema):
+    def __init__(self, model: [CustomerModel], schema: [CustomerSchema]):
         self.model = model
         self.schema = schema
 
     def get_all(self, order_by: str):
-        items = session.query(self.model).all()
+        order_by = self.model.id.desc() if order_by == 'DESC' else self.model.id.asc()
+        items = session.query(self.model).order_by(order_by)
         serialized = list(map(lambda item: self.schema(**item.to_dict()), items))
 
         return serialized
 
+    def __raw_get_all(self, order_by: str):
+        order_by = self.model.id.desc() if order_by == 'DESC' else self.model.id.asc()
+        items = session.query(self.model).order_by(order_by)
+
+        return items
+
+    def get_by_id(self, model_id: int):
+        model_object = session.query(self.model).filter(self.model.id == model_id).first()
+        return CustomerSchema(**model_object.to_dict())
+
     def store(self, data):
-        pass
+        new_model = self.model(**data)
+        session.add(new_model)
+        session.commit()
+
+        return CustomerSchema(**new_model.to_dict())
 
 
 class CustomerRepository:
@@ -65,10 +97,9 @@ class CustomerRepository:
         self.db_path: str = db_path
         self.conn = PostgresDB(CustomerModel, CustomerSchema)
 
-    def get_all(self, order_by="ASK") -> list:
+    def get_all(self, order_by="ASC") -> list:
         items = self.conn.get_all(order_by)
-        customers = items
-        return customers
+        return items
 
     def __raw_get_all(self):
         with open(self.db_path) as json_file:
@@ -76,23 +107,11 @@ class CustomerRepository:
         return data
 
     def get_by_id(self, customer_id: int) -> object:
-        data = self.__raw_get_all()
-        indices = [index for (index, item) in enumerate(data["customers"]) if item["uid"] == int(customer_id)]
-        if not indices:
-            return None
-        customer = data["customers"][indices[0]]
-        cm = CustomerSchema(**customer)
-        cm.services = list(map(lambda item: ServiceSchema(**item), customer["services"]))
-        return cm
+        return self.conn.get_by_id(customer_id)
 
     def store(self, customer: dict) -> object:
-        data = self.__raw_get_all()
-        customer["uid"] = len(data["customers"]) + 1
-        data["customers"].append(customer)
-        with open(self.db_path, 'w') as outfile:
-            json.dump(data, outfile)
-
-        return CustomerSchema(**customer)
+        created_customer = self.conn.store(customer)
+        return CustomerSchema(**created_customer.to_dict())
 
 
 class ServiceRepository:
