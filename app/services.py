@@ -16,8 +16,8 @@ class CustomerService(ServiceBase):
     def __init__(ctx):
         pass
 
-    @rpc(Unicode(values=["ASK", "DESC"]), _returns=Array(CustomerSchema))
-    def customer_get_list(ctx, order_by="ASK"):
+    @rpc(Unicode(values=["ASC", "DESC"]), _returns=Array(CustomerSchema))
+    def customer_get_list(ctx, order_by="ASC"):
         """Docstrings for customer service in the wsdl.
 
         @return the completed array
@@ -26,7 +26,7 @@ class CustomerService(ServiceBase):
         items = customer_repo.get_all(order_by)
         return items
 
-    @rpc(Unicode, _returns=Iterable(Unicode))
+    @rpc(Unicode, _returns=CustomerSchema)
     def customer_get(ctx, customer_id):
         """Docstrings for customer item in the wsdl.
 
@@ -40,7 +40,7 @@ class CustomerService(ServiceBase):
 
         # yield u'ds'
 
-    @rpc(Unicode(), Unicode, Unicode(max_len=10), Unicode, Unicode, Unicode, Unicode, _returns=Iterable(Unicode))
+    @rpc(Unicode(), Unicode, Unicode(max_len=10), Unicode, Unicode, Unicode, Unicode, _returns=CustomerSchema)
     def customer_create(ctx, name, family, national_code, father_name, certificate_number, birthday, address):
         """Docstrings for create customer   in the wsdl.
 
@@ -69,7 +69,6 @@ class CustomerService(ServiceBase):
         validator = CustomerCreateValidation()
         validator.is_valid(payload)
         customer = customer_repo.store(payload)
-
         return customer
 
     @rpc(Unicode, _returns=Array(Iterable(Unicode)))
