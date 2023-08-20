@@ -71,6 +71,25 @@ class CustomerService(ServiceBase):
         customer = customer_repo.store(payload)
         return customer
 
+    @rpc(Unicode(), Unicode(), Unicode, _returns=CustomerSchema)
+    def customer_edit(ctx, customer_id, name, family):
+        """Docstrings for create customer   in the wsdl.
+
+            @param name the customer name
+            @param family the customer family
+
+            @return the completed Customer Object
+         """
+
+        payload = {
+            "name": name,
+            "family": family,
+        }
+
+        customer = customer_repo.update(customer_id, payload)
+
+        return customer
+
     @rpc(Unicode, _returns=Array(Iterable(Unicode)))
     def customer_get_service_list(ctx, customer_id):
         """Docstrings for customer services list by id in the wsdl.
