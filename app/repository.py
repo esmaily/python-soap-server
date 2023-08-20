@@ -3,7 +3,7 @@ from abc import ABC
 from app.schemas import CustomerSchema, ServiceSchema
 from app.models import CustomerModel, ServiceModel
 from app.db import session
-
+from sqlalchemy import update, delete
 
 class Storage(ABC):
     def get_all(self, order_by: str):
@@ -91,6 +91,19 @@ class PostgresDB:
 
         return CustomerSchema(**new_model.to_dict())
 
+    def update(self, model_id: int, data: dict):
+        query = update(self.model).where(self.model.id == model_id).values(data)
+        session.execute(query)
+        session.commit()
+
+        return self.get_by_id(model_id)
+
+    def delete(self, model_id: int):
+        query = delete(self.model).where(self.model.id == model_id)
+        session.execute(query)
+        session.commit()
+        return True
+
 
 class CustomerRepository:
     def __init__(self, db_path: str):
@@ -112,6 +125,14 @@ class CustomerRepository:
     def store(self, customer: dict) -> object:
         created_customer = self.conn.store(customer)
         return CustomerSchema(**created_customer.to_dict())
+
+    def update(self, customer_id: int, customer: dict) -> object:
+        updated_customer = self.conn.update(customer_id, customer)
+        return updated_customer
+
+    def delete(self, customer_id: int) -> object:
+        self.conn.delete(customer_id)
+        return True
 
 
 class ServiceRepository:
