@@ -6,8 +6,8 @@ from dataclasses import dataclass
 class ServiceSchema(ComplexModel):
     id: int = UnsignedInteger32(pk=True)
     name: str = Unicode(150)
-    number: int = Unicode(200)
-    customer_id: int = Unicode(200)
+    number: int = UnsignedInteger32()
+    customer_id: int = UnsignedInteger32()
     created_on: str = Unicode(250)
     updated_on: str = Unicode(250)
 
