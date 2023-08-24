@@ -1,40 +1,8 @@
 from abc import ABC, abstractmethod
 from datetime import date, timedelta
 from typing import Any, Optional
-
+from app.core.patterns import AbstractValidator
 from spyne.error import ValidationError
-
-
-class Validator(ABC):
-    """Parent class of all concrete validator"""
-
-    @abstractmethod
-    def go_next(self, validator):
-        pass
-
-    @abstractmethod
-    def validate(self, request) -> Optional[str]:
-        pass
-
-
-class AbstractValidator(Validator):
-    """
-    The default chaining behavior  for validations
-    class.
-    """
-
-    _go_validator: Validator = None
-
-    def go_next(self, validator: Validator) -> Validator:
-        self._go_validator = validator
-        return validator
-
-    @abstractmethod
-    def validate(self, request: Any) -> str:
-        if self._go_validator:
-            return self._go_validator.validate(request)
-
-        return None
 
 
 class NationalCodeValidator(AbstractValidator):

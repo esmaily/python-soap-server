@@ -1,4 +1,4 @@
-from app.core_validators import (
+from app.core.validators import (
     BirthdayCheckAdultValidator,
     BirthdayFormatValidator,
     CustomerExistsValidator,

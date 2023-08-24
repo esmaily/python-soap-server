@@ -1,24 +1,19 @@
 import os
 from decouple import Config, RepositoryEnv
-
+from app.core.patterns import Singleton
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
 from sqlalchemy.engine import URL
 from app.models import BaseModel
 
+
 env = Config(RepositoryEnv(f"{os.path.abspath(os.path.dirname(__name__))}/.env"))
 
 
-"""
-
-config database 
-
-"""
-
-
-class Database:
+class Database(metaclass=Singleton):
 
     def __init__(self):
+        print("call init")
         self.__init_session = None
         self.engine = None
 
