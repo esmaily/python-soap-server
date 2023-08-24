@@ -1,6 +1,9 @@
 # Python Simple Soap Server
 
-  
+> This project a good example implements python soap server. for save data you can choose json file 
+> or postgres 
+
+
 License: MIT
 
 
@@ -11,6 +14,11 @@ License: MIT
     $ python -m venv .venv
     $ source .venv/bin/activate
     $ pip install -r requirements.txt
+
+
+##### Set environment file:
+
+    $ cp .env.exmaple .env
 
 ##### Run project :
 
