@@ -2,19 +2,14 @@ from spyne import Array, ServiceBase, Unicode, rpc, Iterable
 
 from app.validations import CustomerCreateValidation, ServiceCreateValidation
 
-# from .models import CustomerModel, ServiceModel
 from .repository import CustomerRepository, ServiceRepository
 
-FILEPATH = "db.json"
-
-customer_repo = CustomerRepository(FILEPATH)
-service_repo = ServiceRepository(FILEPATH)
+customer_repo = CustomerRepository()
+service_repo = ServiceRepository()
 from app.schemas import CustomerSchema, ServiceSchema
 
 
-class CustomerService(ServiceBase):
-    def __init__(ctx):
-        pass
+class CustomerController(ServiceBase):
 
     @rpc(Unicode(values=["ASC", "DESC"]), _returns=Array(CustomerSchema))
     def customer_get_list(ctx, order_by="ASC"):
@@ -37,8 +32,6 @@ class CustomerService(ServiceBase):
         customer = customer_repo.get_by_id(int(customer_id))
 
         return customer
-
-        # yield u'ds'
 
     @rpc(Unicode(), Unicode, Unicode(max_len=10), Unicode, Unicode, Unicode, Unicode, _returns=CustomerSchema)
     def customer_create(ctx, name, family, national_code, father_name, certificate_number, birthday, address):
@@ -71,12 +64,14 @@ class CustomerService(ServiceBase):
         customer = customer_repo.store(payload)
         return customer
 
-    @rpc(Unicode(), Unicode(), Unicode, _returns=CustomerSchema)
-    def customer_edit(ctx, customer_id, name, family):
+    @rpc(Unicode(), Unicode(), Unicode(), Unicode(), _returns=CustomerSchema)
+    def customer_edit(ctx, customer_id, name, family, address):
         """Docstrings for create customer   in the wsdl.
 
+            @param customer_id the customer id
             @param name the customer name
             @param family the customer family
+            @param address the customer address
 
             @return the completed Customer Object
          """
@@ -84,24 +79,82 @@ class CustomerService(ServiceBase):
         payload = {
             "name": name,
             "family": family,
+            "address": address,
         }
 
         customer = customer_repo.update(customer_id, payload)
 
         return customer
 
-    @rpc(Unicode, _returns=Array(Iterable(Unicode)))
+    @rpc(Unicode(), _returns=CustomerSchema)
+    def customer_delete(ctx, customer_id):
+        """Docstrings for create customer   in the wsdl.
+
+            @param customer_id the customer id
+            @return the completed Customer Object
+         """
+
+        customer = customer_repo.delete(customer_id)
+
+        return customer
+
+
+class ServiceController(ServiceBase):
+
+    @rpc(Unicode(values=["ASC", "DESC"]), _returns=Array(ServiceSchema))
+    def service_get_list(ctx, order_by="ASC"):
+        """Docstrings for customer service in the wsdl.
+
+        @return the completed array
+        """
+
+        items = service_repo.get_all(order_by)
+        return items
+
+    @rpc(Unicode, _returns=ServiceSchema)
+    def service_get(ctx, customer_id):
+        """Docstrings for customer item in the wsdl.
+
+
+        @return the completed customer object
+        """
+
+        customer = service_repo.get_by_id(int(customer_id))
+
+        return customer
+
+    @rpc(Unicode(), Unicode(), Unicode, _returns=ServiceSchema)
+    def service_edit(ctx, service_id, name, number):
+        """Docstrings for create customer   in the wsdl.
+
+            @param service_id the customer id
+            @param name the customer name
+            @param number the customer number
+
+            @return the completed Customer Object
+         """
+
+        payload = {
+            "name": name,
+            "number": number,
+        }
+
+        customer = customer_repo.update(service_id, payload)
+
+        return customer
+
+    @rpc(Unicode, _returns=Array(ServiceSchema))
     def customer_get_service_list(ctx, customer_id):
         """Docstrings for customer services list by id in the wsdl.
 
         @return the completed array
         """
 
-        items = service_repo.get_service_by_customer(customer_id)
+        items = service_repo.get_by_customer(customer_id)
         return items
 
-    @rpc(Unicode, Unicode(max_len=150), Unicode(max_len=11), _returns=Iterable(Unicode))
-    def customer_create_service(ctx, customer_id, name, number):
+    @rpc(Unicode, Unicode(max_len=150), Unicode(max_len=11), _returns=ServiceSchema)
+    def service_create(ctx, customer_id, name, number):
         """Docstrings for customer services list by id in the wsdl.
 
             @param customer_id the service customer_id
@@ -116,11 +169,11 @@ class CustomerService(ServiceBase):
             "number": number
         }
         customer = customer_repo.get_by_id(int(customer_id))
-        services = service_repo.get_service_by_customer(customer_id)
+        services = service_repo.get_by_customer(customer_id)
         validator = ServiceCreateValidation()
         validator.is_valid({
             "services": services,
             "customer": customer
         })
-        service = service_repo.store(payload)
-        return service
+        new_service = service_repo.store(payload)
+        return new_service

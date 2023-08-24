@@ -2,10 +2,9 @@
 
 
 """
-This is a simple Shatel mobile  example to show the basics of writing
+This is a simple Python soap server  example to show the basics of writing
 a webservice using spyne, starting a server, and creating a service
 client.
-
 
 """
 
@@ -13,12 +12,9 @@ from spyne import Application, ResourceNotFoundError
 from spyne.protocol.soap import Soap11
 from spyne.server.wsgi import WsgiApplication
 
-from app.services import CustomerService
+from app.controllers import CustomerController, ServiceController
 
-
-
-
-application = Application([CustomerService], 'python.soap.example',
+application = Application([CustomerController, ServiceController], 'python.soap.example',
                           in_protocol=Soap11(validator='lxml'),
                           out_protocol=Soap11())
 
