@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import Any, Optional, List
+from typing import Any, Optional
 
 
 class Singleton(type):
@@ -60,6 +60,10 @@ class Orm(ABC):
 
     @abstractmethod
     def get_by_id(self, model_id: int):
+        pass
+
+    @abstractmethod
+    def get_by(self, **kwargs):
         pass
 
     @abstractmethod
