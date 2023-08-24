@@ -1,28 +1,13 @@
 import json
-from abc import ABC
 from app.schemas import CustomerSchema, ServiceSchema
-from app.models import CustomerModel, ServiceModel
-from app.db import session
+from app.models import CustomerModel
+from app.core.db import session
 from sqlalchemy import update, delete
-
-class Storage(ABC):
-    def get_all(self, order_by: str):
-        pass
-
-    def get_by_id(self, model_id: int):
-        pass
-
-    def create(self, model_id: int):
-        pass
-
-    def update(self, model_id: int, data: dict):
-        pass
-
-    def delete(self, model_id: int):
-        pass
+from app.core.patterns import Orm
 
 
-class JsonDB:
+class JsonDB(Orm):
+
     def __init__(self, db_path: str):
         self.db_path: str = db_path
 
@@ -61,8 +46,14 @@ class JsonDB:
 
         return CustomerSchema(**customer)
 
+    def update(self, model_id: int, data: dict):
+        pass
 
-class PostgresDB:
+    def destroy(self, model_id: int):
+        pass
+
+
+class PostgresDB(Orm):
     def __init__(self, model: [CustomerModel], schema: [CustomerSchema]):
         self.model = model
         self.schema = schema
@@ -98,7 +89,7 @@ class PostgresDB:
 
         return self.get_by_id(model_id)
 
-    def delete(self, model_id: int):
+    def destroy(self, model_id: int):
         query = delete(self.model).where(self.model.id == model_id)
         session.execute(query)
         session.commit()
@@ -131,7 +122,7 @@ class CustomerRepository:
         return updated_customer
 
     def delete(self, customer_id: int) -> object:
-        self.conn.delete(customer_id)
+        self.conn.destroy(customer_id)
         return True
 
 
