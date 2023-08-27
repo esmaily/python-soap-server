@@ -41,7 +41,7 @@ class Database(metaclass=Singleton):
             self.postgres_connect()
             return PostgresDB(orm_model, orm_schema)
         else:
-            raise "please set database connection driver"
+            raise "Please set correct database connection driver [json or postgres]"
 
 
 db = Database()
@@ -53,6 +53,11 @@ class JsonDB(Orm):
         self.db_path: str = settings.JSON_DB_FILE
         self.model = model
         self.schema = schema
+
+    def __write_in_file(self, data):
+        with open(self.db_path, 'w') as outfile:
+            json.dump(data, outfile)
+        return True
 
     def get_all(self, order_by="ASK") -> list:
         with open(self.db_path) as json_file:
@@ -70,33 +75,47 @@ class JsonDB(Orm):
             data = json.load(json_file)
         return data
 
-    def get_by_id(self, customer_id: int) -> object:
-        data = self.__raw_get_all()
-        indices = [index for (index, item) in enumerate(data["customers"]) if item["uid"] == int(customer_id)]
+    def get_by_id(self, model_id: int) -> object:
+        data = self.raw_get_all()
+        indices = [index for (index, item) in enumerate(data["customers"]) if item["id"] == int(model_id)]
         if not indices:
             return None
-        customer = data["customers"][indices[0]]
-        cm = self.schema(**customer)
-        cm.services = list(map(lambda item: self.schema(**item), customer["services"]))
+        model_object = data["customers"][indices[0]]
+        cm = self.schema(**model_object)
+        cm.services = list(map(lambda item: self.schema(**item), model_object["services"]))
         return cm
 
     def get_by(self, **kwargs):
         pass
 
-    def store(self, customer: dict) -> object:
-        data = self.__raw_get_all()
-        customer["uid"] = len(data["customers"]) + 1
-        data["customers"].append(customer)
+    def store(self, model_data: dict) -> object:
+        data = self.raw_get_all()
+        model_data["id"] = len(data["customers"]) + 1
+        data["customers"].append(model_data)
         with open(self.db_path, 'w') as outfile:
             json.dump(data, outfile)
 
-        return self.schema(**customer)
+        return self.schema(**model_data)
 
-    def update(self, model_id: int, data: dict):
-        pass
+    def update(self, model_id: int, model_data: dict):
+        data = self.raw_get_all()
+        indices = [index for (index, item) in enumerate(data["customers"]) if item["id"] == int(model_id)]
+        if not indices:
+            return None
+        for key in model_data:
+            data["customers"][indices[0]][key] = model_data[key]
+        self.__write_in_file(data)
+        return self.get_by_id(model_id)
 
     def destroy(self, model_id: int):
-        pass
+        data = self.raw_get_all()
+        indices = [index for (index, item) in enumerate(data["customers"]) if item["id"] == int(model_id)]
+        if not indices:
+            return None
+        del data["customers"][indices[0]]
+
+        self.__write_in_file(data)
+        return True
 
 
 class PostgresDB(Orm):
