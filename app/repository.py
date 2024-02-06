@@ -12,7 +12,7 @@ class CustomerRepository:
     def get_all(self, order_by: str = "ASC") -> list:
         customers = self.conn.get_all(order_by)
         for customer in customers:
-            customer.services = list(map(lambda item: ServiceSchema(**item.to_dict()), customer.services))
+            customer.services = list(map(lambda item: ServiceSchema(**item.to_dict()) if type(item) != ServiceSchema else item, customer.services))
 
         return customers
 
@@ -22,7 +22,7 @@ class CustomerRepository:
 
     def get_by_id(self, customer_id: int) -> object:
         customer = self.conn.get_by_id(customer_id)
-        customer.services = list(map(lambda item: ServiceSchema(**item.to_dict()), customer.services))
+        customer.services = list(map(lambda item: ServiceSchema(**item.to_dict()) if type(item) != ServiceSchema else item, customer.services))
         return customer
 
     def store(self, customer: dict) -> object:
@@ -57,14 +57,14 @@ class ServiceRepository:
     def get_by_id(self, service_id: int) -> object:
         return self.conn.get_by_id(service_id)
 
-    def store(self, customer: dict) -> object:
-        created_customer = self.conn.store(customer)
-        return created_customer
+    def store(self, service: dict) -> object:
+        created_service = self.conn.store(service)
+        return created_service
 
-    def update(self, customer_id: int, customer: dict) -> object:
-        updated_customer = self.conn.update(customer_id, customer)
-        return updated_customer
+    def update(self, service_id: int, service: dict) -> object:
+        updated_service = self.conn.update(service_id, service)
+        return updated_service
 
-    def delete(self, customer_id: int) -> object:
-        self.conn.destroy(customer_id)
+    def delete(self, service_id: int) -> object:
+        self.conn.destroy(service_id)
         return True
