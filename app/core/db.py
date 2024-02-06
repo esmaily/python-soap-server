@@ -7,7 +7,7 @@ import json
 from app.core.config import settings
 from sqlalchemy import update, delete
 from app.core.patterns import Orm
-
+from app.schemas import ServiceSchema
 
 class Database(metaclass=Singleton):
 
@@ -62,13 +62,14 @@ class JsonDB(Orm):
     def get_all(self, order_by="ASK") -> list:
         with open(self.db_path) as json_file:
             data = json.load(json_file)
-            customers = list(map(lambda item: self.schema(**item), data["customers"]))
-            for itr in customers:
-                itr.services = list(map(lambda item: self.schema(**item), itr.services))
-
+            recoreds = list(map(lambda item: self.schema(**item), data[self.model.__tablename__]))
+            if hasattr(self.model,"services"): 
+                for record in recoreds:
+                    services = [itr for itr in data["services"] if int(itr.get("customer_id")) == record.id]
+                    record.services = list(map(lambda item: ServiceSchema(**item), services))
         if order_by == "DESC":
-            customers.reverse()
-        return customers
+            recoreds.reverse()
+        return recoreds
 
     def raw_get_all(self):
         with open(self.db_path) as json_file:
@@ -76,22 +77,35 @@ class JsonDB(Orm):
         return data
 
     def get_by_id(self, model_id: int) -> object:
-        data = self.raw_get_all()
-        indices = [index for (index, item) in enumerate(data["customers"]) if item["id"] == int(model_id)]
+        data = self.raw_get_all() 
+        indices = [index for (index, item) in enumerate(data[self.model.__tablename__]) if item["id"] == int(model_id)]
         if not indices:
             return None
-        model_object = data["customers"][indices[0]]
+        model_object = data[self.model.__tablename__][indices[0]]
         cm = self.schema(**model_object)
-        cm.services = list(map(lambda item: self.schema(**item), model_object["services"]))
+        if hasattr(cm,"services"): 
+            services = [itr for itr in data["services"] if int(itr.get("customer_id")) == cm.id]
+            cm.services = list(map(lambda item: ServiceSchema(**item), services))
+
         return cm
 
-    def get_by(self, **kwargs):
-        pass
+    def get_by(self, **kwargs): 
+        data = self.raw_get_all()
+        items=[]
+        for (index, item) in enumerate(data[self.model.__tablename__]):
+            for record in kwargs:
+                if item[record]== kwargs[record]:
+                    items.append(self.schema(**item))
+        
+        if not items:
+            return []
+    
+        return items
 
     def store(self, model_data: dict) -> object:
         data = self.raw_get_all()
-        model_data["id"] = len(data["customers"]) + 1
-        data["customers"].append(model_data)
+        model_data["id"] = len(data[self.model.__tablename__]) + 1
+        data[self.model.__tablename__].append(model_data)
         with open(self.db_path, 'w') as outfile:
             json.dump(data, outfile)
 
