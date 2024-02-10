@@ -1,56 +1,18 @@
 {
 	"info": {
-		"_postman_id": "7de56332-e458-4d8c-88c7-e74f705e7206",
+		"_postman_id": "0a3722f0-941a-4bd2-ae03-89caa3a9eb18",
 		"name": "Python Soap Server",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "3697852",
+		"_collection_link": "https://dark-water-459239.postman.co/workspace/Karmento-work-space~c5ae9a4e-165e-4d60-8c6b-a21bb1582563/collection/3697852-0a3722f0-941a-4bd2-ae03-89caa3a9eb18?action=share&source=collection_link&creator=3697852"
 	},
 	"item": [
 		{
-			"name": "customers list",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "SOAPAction",
-						"value": "customer_get_list",
-						"type": "default"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<soap:Envelope xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">\r\n  <soap:Body>\r\n    <customer_get_list xmlns=\"python.soap.example\">\r\n        <order_by>DESC</order_by>\r\n    </customer_get_list>\r\n  </soap:Body>\r\n</soap:Envelope>\r\n",
-					"options": {
-						"raw": {
-							"language": "xml"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:8000/sdf?wsdl&",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8000",
-					"path": [
-						"sdf"
-					],
-					"query": [
-						{
-							"key": "wsdl",
-							"value": null
-						},
-						{
-							"key": "",
-							"value": null
-						}
-					]
-				}
-			},
-			"response": [
+			"name": "Service",
+			"item": [
 				{
-					"name": "customers list",
-					"originalRequest": {
+					"name": "Service List",
+					"request": {
 						"method": "POST",
 						"header": [
 							{
@@ -61,7 +23,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<soap:Envelope xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">\r\n  <soap:Body>\r\n    <customer_get_list xmlns=\"python.soap.example\">\r\n        <order_by>ASK</order_by>\r\n    </customer_get_list>\r\n  </soap:Body>\r\n</soap:Envelope>\r\n",
+							"raw": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<soap:Envelope xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">\r\n  <soap:Body>\r\n    <service_get_list xmlns=\"python.soap.example\">\r\n        <order_by>DESC</order_by>\r\n    </service_get_list>\r\n  </soap:Body>\r\n</soap:Envelope>\r\n",
 							"options": {
 								"raw": {
 									"language": "xml"
@@ -90,78 +52,578 @@
 							]
 						}
 					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "xml",
-					"header": [
+					"response": [
 						{
-							"key": "Date",
-							"value": "Sat, 05 Aug 2023 09:42:39 GMT"
-						},
-						{
-							"key": "Server",
-							"value": "WSGIServer/0.2 CPython/3.11.3"
-						},
-						{
-							"key": "Content-Type",
-							"value": "text/xml; charset=utf-8"
-						},
-						{
-							"key": "Content-Length",
-							"value": "2073"
+							"name": "customers list",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "SOAPAction",
+										"value": "customer_get_list",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<soap:Envelope xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">\r\n  <soap:Body>\r\n    <customer_get_list xmlns=\"python.soap.example\">\r\n        <order_by>ASK</order_by>\r\n    </customer_get_list>\r\n  </soap:Body>\r\n</soap:Envelope>\r\n",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8000/sdf?wsdl&",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"sdf"
+									],
+									"query": [
+										{
+											"key": "wsdl",
+											"value": null
+										},
+										{
+											"key": "",
+											"value": null
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "xml",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Sat, 05 Aug 2023 09:42:39 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.11.3"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/xml; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "2073"
+								}
+							],
+							"cookie": [],
+							"body": "<?xml version='1.0' encoding='UTF-8'?>\n<soap11env:Envelope xmlns:soap11env=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:tns=\"python.soap.example\" xmlns:s0=\"app.models\">\n    <soap11env:Body>\n        <tns:customer_get_listResponse>\n            <tns:customer_get_listResult>\n                <s0:CustomerModel>\n                    <s0:uid>1</s0:uid>\n                    <s0:name>Jafar</s0:name>\n                    <s0:family>Esmaili</s0:family>\n                    <s0:national_code>1473511384</s0:national_code>\n                    <s0:father_name>Ali</s0:father_name>\n                    <s0:certificate_number>254754</s0:certificate_number>\n                    <s0:birthday>1998-03-07</s0:birthday>\n                    <s0:address>Pelak 49, Dr Habib , Marzdaran, Tehran</s0:address>\n                    <s0:services>\n                        <s0:ServiceModel>\n                            <s0:uid>1</s0:uid>\n                            <s0:name>MCI</s0:name>\n                            <s0:number>0912546357</s0:number>\n                            <s0:customer_id>1</s0:customer_id>\n                        </s0:ServiceModel>\n                        <s0:ServiceModel>\n                            <s0:uid>2</s0:uid>\n                            <s0:name>MCI</s0:name>\n                            <s0:number>0912546357</s0:number>\n                            <s0:customer_id>1</s0:customer_id>\n                        </s0:ServiceModel>\n                        <s0:ServiceModel>\n                            <s0:uid>3</s0:uid>\n                            <s0:name>Irancell</s0:name>\n                            <s0:number>09355469177</s0:number>\n                            <s0:customer_id>1</s0:customer_id>\n                        </s0:ServiceModel>\n                    </s0:services>\n                </s0:CustomerModel>\n                <s0:CustomerModel>\n                    <s0:uid>2</s0:uid>\n                    <s0:name>Ross</s0:name>\n                    <s0:family>Geller</s0:family>\n                    <s0:national_code>1473511384</s0:national_code>\n                    <s0:father_name> Arthur Coleman-Schwimmer </s0:father_name>\n                    <s0:certificate_number>854</s0:certificate_number>\n                    <s0:birthday>1966-11-02</s0:birthday>\n                    <s0:address> Flushing, Queens, New York, U.S.</s0:address>\n                    <s0:services/>\n                </s0:CustomerModel>\n                <s0:CustomerModel>\n                    <s0:uid>3</s0:uid>\n                    <s0:name>Chandler</s0:name>\n                    <s0:family>Bing</s0:family>\n                    <s0:national_code>0054778542</s0:national_code>\n                    <s0:father_name> Arthur Coleman-Schwimmer </s0:father_name>\n                    <s0:certificate_number>854</s0:certificate_number>\n                    <s0:birthday>1969-06-19</s0:birthday>\n                    <s0:address>Williamstown, Massachusetts, Vereinigte Staaten U.S.</s0:address>\n                    <s0:services>\n                        <s0:ServiceModel>\n                            <s0:uid>1</s0:uid>\n                            <s0:name>MCI</s0:name>\n                            <s0:number>0990554677</s0:number>\n                            <s0:customer_id>3</s0:customer_id>\n                        </s0:ServiceModel>\n                    </s0:services>\n                </s0:CustomerModel>\n            </tns:customer_get_listResult>\n        </tns:customer_get_listResponse>\n    </soap11env:Body>\n</soap11env:Envelope>"
 						}
-					],
-					"cookie": [],
-					"body": "<?xml version='1.0' encoding='UTF-8'?>\n<soap11env:Envelope xmlns:soap11env=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:tns=\"python.soap.example\" xmlns:s0=\"app.models\">\n    <soap11env:Body>\n        <tns:customer_get_listResponse>\n            <tns:customer_get_listResult>\n                <s0:CustomerModel>\n                    <s0:uid>1</s0:uid>\n                    <s0:name>Jafar</s0:name>\n                    <s0:family>Esmaili</s0:family>\n                    <s0:national_code>1473511384</s0:national_code>\n                    <s0:father_name>Ali</s0:father_name>\n                    <s0:certificate_number>254754</s0:certificate_number>\n                    <s0:birthday>1998-03-07</s0:birthday>\n                    <s0:address>Pelak 49, Dr Habib , Marzdaran, Tehran</s0:address>\n                    <s0:services>\n                        <s0:ServiceModel>\n                            <s0:uid>1</s0:uid>\n                            <s0:name>MCI</s0:name>\n                            <s0:number>0912546357</s0:number>\n                            <s0:customer_id>1</s0:customer_id>\n                        </s0:ServiceModel>\n                        <s0:ServiceModel>\n                            <s0:uid>2</s0:uid>\n                            <s0:name>MCI</s0:name>\n                            <s0:number>0912546357</s0:number>\n                            <s0:customer_id>1</s0:customer_id>\n                        </s0:ServiceModel>\n                        <s0:ServiceModel>\n                            <s0:uid>3</s0:uid>\n                            <s0:name>Irancell</s0:name>\n                            <s0:number>09355469177</s0:number>\n                            <s0:customer_id>1</s0:customer_id>\n                        </s0:ServiceModel>\n                    </s0:services>\n                </s0:CustomerModel>\n                <s0:CustomerModel>\n                    <s0:uid>2</s0:uid>\n                    <s0:name>Ross</s0:name>\n                    <s0:family>Geller</s0:family>\n                    <s0:national_code>1473511384</s0:national_code>\n                    <s0:father_name> Arthur Coleman-Schwimmer </s0:father_name>\n                    <s0:certificate_number>854</s0:certificate_number>\n                    <s0:birthday>1966-11-02</s0:birthday>\n                    <s0:address> Flushing, Queens, New York, U.S.</s0:address>\n                    <s0:services/>\n                </s0:CustomerModel>\n                <s0:CustomerModel>\n                    <s0:uid>3</s0:uid>\n                    <s0:name>Chandler</s0:name>\n                    <s0:family>Bing</s0:family>\n                    <s0:national_code>0054778542</s0:national_code>\n                    <s0:father_name> Arthur Coleman-Schwimmer </s0:father_name>\n                    <s0:certificate_number>854</s0:certificate_number>\n                    <s0:birthday>1969-06-19</s0:birthday>\n                    <s0:address>Williamstown, Massachusetts, Vereinigte Staaten U.S.</s0:address>\n                    <s0:services>\n                        <s0:ServiceModel>\n                            <s0:uid>1</s0:uid>\n                            <s0:name>MCI</s0:name>\n                            <s0:number>0990554677</s0:number>\n                            <s0:customer_id>3</s0:customer_id>\n                        </s0:ServiceModel>\n                    </s0:services>\n                </s0:CustomerModel>\n            </tns:customer_get_listResult>\n        </tns:customer_get_listResponse>\n    </soap11env:Body>\n</soap11env:Envelope>"
+					]
+				},
+				{
+					"name": "Service Get Id",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "SOAPAction",
+								"value": "customer_get_list",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<soap:Envelope xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">\r\n  <soap:Body>\r\n    <service_get xmlns=\"python.soap.example\">\r\n        <service_id>1</service_id>\r\n    </service_get>\r\n  </soap:Body>\r\n</soap:Envelope>\r\n",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/sdf?wsdl&",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"sdf"
+							],
+							"query": [
+								{
+									"key": "wsdl",
+									"value": null
+								},
+								{
+									"key": "",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "customers list",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "SOAPAction",
+										"value": "customer_get_list",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<soap:Envelope xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">\r\n  <soap:Body>\r\n    <customer_get_list xmlns=\"python.soap.example\">\r\n        <order_by>ASK</order_by>\r\n    </customer_get_list>\r\n  </soap:Body>\r\n</soap:Envelope>\r\n",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8000/sdf?wsdl&",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"sdf"
+									],
+									"query": [
+										{
+											"key": "wsdl",
+											"value": null
+										},
+										{
+											"key": "",
+											"value": null
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "xml",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Sat, 05 Aug 2023 09:42:39 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.11.3"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/xml; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "2073"
+								}
+							],
+							"cookie": [],
+							"body": "<?xml version='1.0' encoding='UTF-8'?>\n<soap11env:Envelope xmlns:soap11env=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:tns=\"python.soap.example\" xmlns:s0=\"app.models\">\n    <soap11env:Body>\n        <tns:customer_get_listResponse>\n            <tns:customer_get_listResult>\n                <s0:CustomerModel>\n                    <s0:uid>1</s0:uid>\n                    <s0:name>Jafar</s0:name>\n                    <s0:family>Esmaili</s0:family>\n                    <s0:national_code>1473511384</s0:national_code>\n                    <s0:father_name>Ali</s0:father_name>\n                    <s0:certificate_number>254754</s0:certificate_number>\n                    <s0:birthday>1998-03-07</s0:birthday>\n                    <s0:address>Pelak 49, Dr Habib , Marzdaran, Tehran</s0:address>\n                    <s0:services>\n                        <s0:ServiceModel>\n                            <s0:uid>1</s0:uid>\n                            <s0:name>MCI</s0:name>\n                            <s0:number>0912546357</s0:number>\n                            <s0:customer_id>1</s0:customer_id>\n                        </s0:ServiceModel>\n                        <s0:ServiceModel>\n                            <s0:uid>2</s0:uid>\n                            <s0:name>MCI</s0:name>\n                            <s0:number>0912546357</s0:number>\n                            <s0:customer_id>1</s0:customer_id>\n                        </s0:ServiceModel>\n                        <s0:ServiceModel>\n                            <s0:uid>3</s0:uid>\n                            <s0:name>Irancell</s0:name>\n                            <s0:number>09355469177</s0:number>\n                            <s0:customer_id>1</s0:customer_id>\n                        </s0:ServiceModel>\n                    </s0:services>\n                </s0:CustomerModel>\n                <s0:CustomerModel>\n                    <s0:uid>2</s0:uid>\n                    <s0:name>Ross</s0:name>\n                    <s0:family>Geller</s0:family>\n                    <s0:national_code>1473511384</s0:national_code>\n                    <s0:father_name> Arthur Coleman-Schwimmer </s0:father_name>\n                    <s0:certificate_number>854</s0:certificate_number>\n                    <s0:birthday>1966-11-02</s0:birthday>\n                    <s0:address> Flushing, Queens, New York, U.S.</s0:address>\n                    <s0:services/>\n                </s0:CustomerModel>\n                <s0:CustomerModel>\n                    <s0:uid>3</s0:uid>\n                    <s0:name>Chandler</s0:name>\n                    <s0:family>Bing</s0:family>\n                    <s0:national_code>0054778542</s0:national_code>\n                    <s0:father_name> Arthur Coleman-Schwimmer </s0:father_name>\n                    <s0:certificate_number>854</s0:certificate_number>\n                    <s0:birthday>1969-06-19</s0:birthday>\n                    <s0:address>Williamstown, Massachusetts, Vereinigte Staaten U.S.</s0:address>\n                    <s0:services>\n                        <s0:ServiceModel>\n                            <s0:uid>1</s0:uid>\n                            <s0:name>MCI</s0:name>\n                            <s0:number>0990554677</s0:number>\n                            <s0:customer_id>3</s0:customer_id>\n                        </s0:ServiceModel>\n                    </s0:services>\n                </s0:CustomerModel>\n            </tns:customer_get_listResult>\n        </tns:customer_get_listResponse>\n    </soap11env:Body>\n</soap11env:Envelope>"
+						}
+					]
+				},
+				{
+					"name": "Service Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<soap:Envelope xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">\r\n  <soap:Body>\r\n    <service_create xmlns=\"python.soap.example\">\r\n        <customer_id>2</customer_id>\r\n        <name>MCI</name>\r\n        <number>09905137677</number>\r\n        \r\n    </service_create>\r\n  </soap:Body>\r\n</soap:Envelope>\r\n",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/?wsdl",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "wsdl",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "service create",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<soap:Envelope xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">\r\n  <soap:Body>\r\n    <customer_create_service xmlns=\"python.soap.example\">\r\n        <customer_id>3</customer_id>\r\n        <name>MCI</name>\r\n        <number>0990554677</number>\r\n        \r\n    </customer_create_service>\r\n  </soap:Body>\r\n</soap:Envelope>\r\n",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8000/?wsdl",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										""
+									],
+									"query": [
+										{
+											"key": "wsdl",
+											"value": null
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "xml",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Sat, 05 Aug 2023 09:41:31 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.11.3"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/xml; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "480"
+								}
+							],
+							"cookie": [],
+							"body": "<?xml version='1.0' encoding='UTF-8'?>\n<soap11env:Envelope xmlns:soap11env=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:tns=\"python.soap.example\" xmlns:s0=\"app.models\">\n    <soap11env:Body>\n        <tns:customer_create_serviceResponse>\n            <tns:customer_create_serviceResult>\n                <s0:uid>1</s0:uid>\n                <s0:name>MCI</s0:name>\n                <s0:number>0990554677</s0:number>\n                <s0:customer_id>3</s0:customer_id>\n            </tns:customer_create_serviceResult>\n        </tns:customer_create_serviceResponse>\n    </soap11env:Body>\n</soap11env:Envelope>"
+						}
+					]
+				},
+				{
+					"name": "Service Edit",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<soap:Envelope xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">\r\n  <soap:Body>\r\n    <service_edit xmlns=\"python.soap.example\">\r\n        <service_id>4</service_id>\r\n        <name>MCI</name>\r\n        <number>09105137677</number>\r\n    </service_edit>\r\n  </soap:Body>\r\n</soap:Envelope>\r\n",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/?wsdl",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "wsdl",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "service create",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<soap:Envelope xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">\r\n  <soap:Body>\r\n    <customer_create_service xmlns=\"python.soap.example\">\r\n        <customer_id>3</customer_id>\r\n        <name>MCI</name>\r\n        <number>0990554677</number>\r\n        \r\n    </customer_create_service>\r\n  </soap:Body>\r\n</soap:Envelope>\r\n",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8000/?wsdl",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										""
+									],
+									"query": [
+										{
+											"key": "wsdl",
+											"value": null
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "xml",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Sat, 05 Aug 2023 09:41:31 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.11.3"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/xml; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "480"
+								}
+							],
+							"cookie": [],
+							"body": "<?xml version='1.0' encoding='UTF-8'?>\n<soap11env:Envelope xmlns:soap11env=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:tns=\"python.soap.example\" xmlns:s0=\"app.models\">\n    <soap11env:Body>\n        <tns:customer_create_serviceResponse>\n            <tns:customer_create_serviceResult>\n                <s0:uid>1</s0:uid>\n                <s0:name>MCI</s0:name>\n                <s0:number>0990554677</s0:number>\n                <s0:customer_id>3</s0:customer_id>\n            </tns:customer_create_serviceResult>\n        </tns:customer_create_serviceResponse>\n    </soap11env:Body>\n</soap11env:Envelope>"
+						}
+					]
+				},
+				{
+					"name": "Service Delete",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<soap:Envelope xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">\r\n  <soap:Body>\r\n    <service_delete xmlns=\"python.soap.example\">\r\n        <service_id>4</service_id>\r\n    </service_delete>\r\n  </soap:Body>\r\n</soap:Envelope>\r\n",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/?wsdl",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "wsdl",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "service create",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<soap:Envelope xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">\r\n  <soap:Body>\r\n    <customer_create_service xmlns=\"python.soap.example\">\r\n        <customer_id>3</customer_id>\r\n        <name>MCI</name>\r\n        <number>0990554677</number>\r\n        \r\n    </customer_create_service>\r\n  </soap:Body>\r\n</soap:Envelope>\r\n",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8000/?wsdl",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										""
+									],
+									"query": [
+										{
+											"key": "wsdl",
+											"value": null
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "xml",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Sat, 05 Aug 2023 09:41:31 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.11.3"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/xml; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "480"
+								}
+							],
+							"cookie": [],
+							"body": "<?xml version='1.0' encoding='UTF-8'?>\n<soap11env:Envelope xmlns:soap11env=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:tns=\"python.soap.example\" xmlns:s0=\"app.models\">\n    <soap11env:Body>\n        <tns:customer_create_serviceResponse>\n            <tns:customer_create_serviceResult>\n                <s0:uid>1</s0:uid>\n                <s0:name>MCI</s0:name>\n                <s0:number>0990554677</s0:number>\n                <s0:customer_id>3</s0:customer_id>\n            </tns:customer_create_serviceResult>\n        </tns:customer_create_serviceResponse>\n    </soap11env:Body>\n</soap11env:Envelope>"
+						}
+					]
 				}
 			]
 		},
 		{
-			"name": "customers by id",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "SOAPAction",
-						"value": "customer_get_list",
-						"type": "default"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<soap:Envelope xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">\r\n  <soap:Body>\r\n    <customer_get xmlns=\"python.soap.example\">\r\n        <customer_id>1</customer_id>\r\n    </customer_get>\r\n  </soap:Body>\r\n</soap:Envelope>\r\n",
-					"options": {
-						"raw": {
-							"language": "xml"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:8000/?wsdl&",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8000",
-					"path": [
-						""
-					],
-					"query": [
-						{
-							"key": "wsdl",
-							"value": null
+			"name": "Customer",
+			"item": [
+				{
+					"name": "Customers List",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "SOAPAction",
+								"value": "customer_get_list",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<soap:Envelope xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">\r\n  <soap:Body>\r\n    <customer_get_list xmlns=\"python.soap.example\">\r\n        <order_by>DESC</order_by>\r\n    </customer_get_list>\r\n  </soap:Body>\r\n</soap:Envelope>\r\n",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
 						},
+						"url": {
+							"raw": "http://localhost:8000/sdf?wsdl&",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"sdf"
+							],
+							"query": [
+								{
+									"key": "wsdl",
+									"value": null
+								},
+								{
+									"key": "",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": [
 						{
-							"key": "",
-							"value": null
+							"name": "customers list",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "SOAPAction",
+										"value": "customer_get_list",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<soap:Envelope xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">\r\n  <soap:Body>\r\n    <customer_get_list xmlns=\"python.soap.example\">\r\n        <order_by>ASK</order_by>\r\n    </customer_get_list>\r\n  </soap:Body>\r\n</soap:Envelope>\r\n",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8000/sdf?wsdl&",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"sdf"
+									],
+									"query": [
+										{
+											"key": "wsdl",
+											"value": null
+										},
+										{
+											"key": "",
+											"value": null
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "xml",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Sat, 05 Aug 2023 09:42:39 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.11.3"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/xml; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "2073"
+								}
+							],
+							"cookie": [],
+							"body": "<?xml version='1.0' encoding='UTF-8'?>\n<soap11env:Envelope xmlns:soap11env=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:tns=\"python.soap.example\" xmlns:s0=\"app.models\">\n    <soap11env:Body>\n        <tns:customer_get_listResponse>\n            <tns:customer_get_listResult>\n                <s0:CustomerModel>\n                    <s0:uid>1</s0:uid>\n                    <s0:name>Jafar</s0:name>\n                    <s0:family>Esmaili</s0:family>\n                    <s0:national_code>1473511384</s0:national_code>\n                    <s0:father_name>Ali</s0:father_name>\n                    <s0:certificate_number>254754</s0:certificate_number>\n                    <s0:birthday>1998-03-07</s0:birthday>\n                    <s0:address>Pelak 49, Dr Habib , Marzdaran, Tehran</s0:address>\n                    <s0:services>\n                        <s0:ServiceModel>\n                            <s0:uid>1</s0:uid>\n                            <s0:name>MCI</s0:name>\n                            <s0:number>0912546357</s0:number>\n                            <s0:customer_id>1</s0:customer_id>\n                        </s0:ServiceModel>\n                        <s0:ServiceModel>\n                            <s0:uid>2</s0:uid>\n                            <s0:name>MCI</s0:name>\n                            <s0:number>0912546357</s0:number>\n                            <s0:customer_id>1</s0:customer_id>\n                        </s0:ServiceModel>\n                        <s0:ServiceModel>\n                            <s0:uid>3</s0:uid>\n                            <s0:name>Irancell</s0:name>\n                            <s0:number>09355469177</s0:number>\n                            <s0:customer_id>1</s0:customer_id>\n                        </s0:ServiceModel>\n                    </s0:services>\n                </s0:CustomerModel>\n                <s0:CustomerModel>\n                    <s0:uid>2</s0:uid>\n                    <s0:name>Ross</s0:name>\n                    <s0:family>Geller</s0:family>\n                    <s0:national_code>1473511384</s0:national_code>\n                    <s0:father_name> Arthur Coleman-Schwimmer </s0:father_name>\n                    <s0:certificate_number>854</s0:certificate_number>\n                    <s0:birthday>1966-11-02</s0:birthday>\n                    <s0:address> Flushing, Queens, New York, U.S.</s0:address>\n                    <s0:services/>\n                </s0:CustomerModel>\n                <s0:CustomerModel>\n                    <s0:uid>3</s0:uid>\n                    <s0:name>Chandler</s0:name>\n                    <s0:family>Bing</s0:family>\n                    <s0:national_code>0054778542</s0:national_code>\n                    <s0:father_name> Arthur Coleman-Schwimmer </s0:father_name>\n                    <s0:certificate_number>854</s0:certificate_number>\n                    <s0:birthday>1969-06-19</s0:birthday>\n                    <s0:address>Williamstown, Massachusetts, Vereinigte Staaten U.S.</s0:address>\n                    <s0:services>\n                        <s0:ServiceModel>\n                            <s0:uid>1</s0:uid>\n                            <s0:name>MCI</s0:name>\n                            <s0:number>0990554677</s0:number>\n                            <s0:customer_id>3</s0:customer_id>\n                        </s0:ServiceModel>\n                    </s0:services>\n                </s0:CustomerModel>\n            </tns:customer_get_listResult>\n        </tns:customer_get_listResponse>\n    </soap11env:Body>\n</soap11env:Envelope>"
 						}
 					]
-				}
-			},
-			"response": [
+				},
 				{
-					"name": "customers by id",
-					"originalRequest": {
+					"name": "Customers By Id",
+					"request": {
 						"method": "POST",
 						"header": [
 							{
@@ -201,73 +663,83 @@
 							]
 						}
 					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "xml",
-					"header": [
+					"response": [
 						{
-							"key": "Date",
-							"value": "Sat, 05 Aug 2023 09:42:07 GMT"
-						},
-						{
-							"key": "Server",
-							"value": "WSGIServer/0.2 CPython/3.11.3"
-						},
-						{
-							"key": "Content-Type",
-							"value": "text/xml; charset=utf-8"
-						},
-						{
-							"key": "Content-Length",
-							"value": "1096"
-						}
-					],
-					"cookie": [],
-					"body": "<?xml version='1.0' encoding='UTF-8'?>\n<soap11env:Envelope xmlns:soap11env=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:tns=\"python.soap.example\" xmlns:s0=\"app.models\">\n    <soap11env:Body>\n        <tns:customer_getResponse>\n            <tns:customer_getResult>\n                <s0:uid>1</s0:uid>\n                <s0:name>Jafar</s0:name>\n                <s0:family>Esmaili</s0:family>\n                <s0:national_code>1473511384</s0:national_code>\n                <s0:father_name>Ali</s0:father_name>\n                <s0:certificate_number>254754</s0:certificate_number>\n                <s0:birthday>1998-03-07</s0:birthday>\n                <s0:address>Pelak 49, Dr Habib , Marzdaran, Tehran</s0:address>\n                <s0:services>\n                    <s0:ServiceModel>\n                        <s0:uid>1</s0:uid>\n                        <s0:name>MCI</s0:name>\n                        <s0:number>0912546357</s0:number>\n                        <s0:customer_id>1</s0:customer_id>\n                    </s0:ServiceModel>\n                    <s0:ServiceModel>\n                        <s0:uid>2</s0:uid>\n                        <s0:name>MCI</s0:name>\n                        <s0:number>0912546357</s0:number>\n                        <s0:customer_id>1</s0:customer_id>\n                    </s0:ServiceModel>\n                    <s0:ServiceModel>\n                        <s0:uid>3</s0:uid>\n                        <s0:name>Irancell</s0:name>\n                        <s0:number>09355469177</s0:number>\n                        <s0:customer_id>1</s0:customer_id>\n                    </s0:ServiceModel>\n                </s0:services>\n            </tns:customer_getResult>\n        </tns:customer_getResponse>\n    </soap11env:Body>\n</soap11env:Envelope>"
-				}
-			]
-		},
-		{
-			"name": "customers create",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<soap:Envelope xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">\r\n  <soap:Body>\r\n    <customer_create xmlns=\"python.soap.example\">\r\n        <name>Chandler</name>\r\n        <family>Bing</family>\r\n        <national_code>0054778542</national_code>\r\n        <father_name> Arthur Coleman-Schwimmer </father_name>\r\n        <certificate_number>854</certificate_number>\r\n        <birthday>1969-06-19</birthday>\r\n        <address>Williamstown, Massachusetts, Vereinigte Staaten U.S.</address>\r\n    </customer_create>\r\n  </soap:Body>\r\n</soap:Envelope>\r\n",
-					"options": {
-						"raw": {
-							"language": "xml"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:8000/?wsdl",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8000",
-					"path": [
-						""
-					],
-					"query": [
-						{
-							"key": "wsdl",
-							"value": null
+							"name": "customers by id",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "SOAPAction",
+										"value": "customer_get_list",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<soap:Envelope xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">\r\n  <soap:Body>\r\n    <customer_get xmlns=\"python.soap.example\">\r\n        <customer_id>1</customer_id>\r\n    </customer_get>\r\n  </soap:Body>\r\n</soap:Envelope>\r\n",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8000/?wsdl&",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										""
+									],
+									"query": [
+										{
+											"key": "wsdl",
+											"value": null
+										},
+										{
+											"key": "",
+											"value": null
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "xml",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Sat, 05 Aug 2023 09:42:07 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.11.3"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/xml; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1096"
+								}
+							],
+							"cookie": [],
+							"body": "<?xml version='1.0' encoding='UTF-8'?>\n<soap11env:Envelope xmlns:soap11env=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:tns=\"python.soap.example\" xmlns:s0=\"app.models\">\n    <soap11env:Body>\n        <tns:customer_getResponse>\n            <tns:customer_getResult>\n                <s0:uid>1</s0:uid>\n                <s0:name>Jafar</s0:name>\n                <s0:family>Esmaili</s0:family>\n                <s0:national_code>1473511384</s0:national_code>\n                <s0:father_name>Ali</s0:father_name>\n                <s0:certificate_number>254754</s0:certificate_number>\n                <s0:birthday>1998-03-07</s0:birthday>\n                <s0:address>Pelak 49, Dr Habib , Marzdaran, Tehran</s0:address>\n                <s0:services>\n                    <s0:ServiceModel>\n                        <s0:uid>1</s0:uid>\n                        <s0:name>MCI</s0:name>\n                        <s0:number>0912546357</s0:number>\n                        <s0:customer_id>1</s0:customer_id>\n                    </s0:ServiceModel>\n                    <s0:ServiceModel>\n                        <s0:uid>2</s0:uid>\n                        <s0:name>MCI</s0:name>\n                        <s0:number>0912546357</s0:number>\n                        <s0:customer_id>1</s0:customer_id>\n                    </s0:ServiceModel>\n                    <s0:ServiceModel>\n                        <s0:uid>3</s0:uid>\n                        <s0:name>Irancell</s0:name>\n                        <s0:number>09355469177</s0:number>\n                        <s0:customer_id>1</s0:customer_id>\n                    </s0:ServiceModel>\n                </s0:services>\n            </tns:customer_getResult>\n        </tns:customer_getResponse>\n    </soap11env:Body>\n</soap11env:Envelope>"
 						}
 					]
-				}
-			},
-			"response": [
+				},
 				{
-					"name": "customers create",
-					"originalRequest": {
+					"name": "Customers Create",
+					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<soap:Envelope xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">\r\n  <soap:Body>\r\n    <customer_create xmlns=\"python.soap.example\">\r\n        <name>Chandler</name>\r\n        <family>Bing</family>\r\n        <national_code>0054778542</national_code>\r\n        <father_name> Arthur Coleman-Schwimmer </father_name>\r\n        <certificate_number>854</certificate_number>\r\n        <birthday>1969-06-19</birthday>\r\n        <address>Williamstown, Massachusetts, Vereinigte Staaten U.S.</address>\r\n    </customer_create>\r\n  </soap:Body>\r\n</soap:Envelope>\r\n",
+							"raw": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<soap:Envelope xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">\r\n  <soap:Body>\r\n    <customer_create xmlns=\"python.soap.example\">\r\n        <name>Ros</name>\r\n        <family>Galler</family>\r\n        <national_code>0054778542</national_code>\r\n        <father_name> Arthur Coleman-Schwimmer </father_name>\r\n        <certificate_number>854</certificate_number>\r\n        <birthday>1969-06-19</birthday>\r\n        <address>Williamstown, Massachusetts, Vereinigte Staaten U.S.</address>\r\n    </customer_create>\r\n  </soap:Body>\r\n</soap:Envelope>\r\n",
 							"options": {
 								"raw": {
 									"language": "xml"
@@ -292,73 +764,73 @@
 							]
 						}
 					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "xml",
-					"header": [
+					"response": [
 						{
-							"key": "Date",
-							"value": "Sat, 05 Aug 2023 09:37:29 GMT"
-						},
-						{
-							"key": "Server",
-							"value": "WSGIServer/0.2 CPython/3.11.3"
-						},
-						{
-							"key": "Content-Type",
-							"value": "text/xml; charset=utf-8"
-						},
-						{
-							"key": "Content-Length",
-							"value": "697"
-						}
-					],
-					"cookie": [],
-					"body": "<?xml version='1.0' encoding='UTF-8'?>\n<soap11env:Envelope xmlns:soap11env=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:tns=\"python.soap.example\" xmlns:s0=\"app.models\">\n    <soap11env:Body>\n        <tns:customer_createResponse>\n            <tns:customer_createResult>\n                <s0:uid>3</s0:uid>\n                <s0:name>Chandler</s0:name>\n                <s0:family>Bing</s0:family>\n                <s0:national_code>0054778542</s0:national_code>\n                <s0:father_name> Arthur Coleman-Schwimmer </s0:father_name>\n                <s0:certificate_number>854</s0:certificate_number>\n                <s0:birthday>1969-06-19</s0:birthday>\n                <s0:address>Williamstown, Massachusetts, Vereinigte Staaten U.S.</s0:address>\n                <s0:services/>\n            </tns:customer_createResult>\n        </tns:customer_createResponse>\n    </soap11env:Body>\n</soap11env:Envelope>"
-				}
-			]
-		},
-		{
-			"name": "service create",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<soap:Envelope xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">\r\n  <soap:Body>\r\n    <customer_create_service xmlns=\"python.soap.example\">\r\n        <customer_id>3</customer_id>\r\n        <name>irancel</name>\r\n        <number>0998349283</number>\r\n        \r\n    </customer_create_service>\r\n  </soap:Body>\r\n</soap:Envelope>\r\n",
-					"options": {
-						"raw": {
-							"language": "xml"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:8000/?wsdl",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8000",
-					"path": [
-						""
-					],
-					"query": [
-						{
-							"key": "wsdl",
-							"value": null
+							"name": "customers create",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<soap:Envelope xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">\r\n  <soap:Body>\r\n    <customer_create xmlns=\"python.soap.example\">\r\n        <name>Chandler</name>\r\n        <family>Bing</family>\r\n        <national_code>0054778542</national_code>\r\n        <father_name> Arthur Coleman-Schwimmer </father_name>\r\n        <certificate_number>854</certificate_number>\r\n        <birthday>1969-06-19</birthday>\r\n        <address>Williamstown, Massachusetts, Vereinigte Staaten U.S.</address>\r\n    </customer_create>\r\n  </soap:Body>\r\n</soap:Envelope>\r\n",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8000/?wsdl",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										""
+									],
+									"query": [
+										{
+											"key": "wsdl",
+											"value": null
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "xml",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Sat, 05 Aug 2023 09:37:29 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.11.3"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/xml; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "697"
+								}
+							],
+							"cookie": [],
+							"body": "<?xml version='1.0' encoding='UTF-8'?>\n<soap11env:Envelope xmlns:soap11env=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:tns=\"python.soap.example\" xmlns:s0=\"app.models\">\n    <soap11env:Body>\n        <tns:customer_createResponse>\n            <tns:customer_createResult>\n                <s0:uid>3</s0:uid>\n                <s0:name>Chandler</s0:name>\n                <s0:family>Bing</s0:family>\n                <s0:national_code>0054778542</s0:national_code>\n                <s0:father_name> Arthur Coleman-Schwimmer </s0:father_name>\n                <s0:certificate_number>854</s0:certificate_number>\n                <s0:birthday>1969-06-19</s0:birthday>\n                <s0:address>Williamstown, Massachusetts, Vereinigte Staaten U.S.</s0:address>\n                <s0:services/>\n            </tns:customer_createResult>\n        </tns:customer_createResponse>\n    </soap11env:Body>\n</soap11env:Envelope>"
 						}
 					]
-				}
-			},
-			"response": [
+				},
 				{
-					"name": "service create",
-					"originalRequest": {
+					"name": "Customers Delete",
+					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<soap:Envelope xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">\r\n  <soap:Body>\r\n    <customer_create_service xmlns=\"python.soap.example\">\r\n        <customer_id>3</customer_id>\r\n        <name>MCI</name>\r\n        <number>0990554677</number>\r\n        \r\n    </customer_create_service>\r\n  </soap:Body>\r\n</soap:Envelope>\r\n",
+							"raw": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<soap:Envelope xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">\r\n  <soap:Body>\r\n    <customer_delete xmlns=\"python.soap.example\">\r\n        <customer_id>1</customer_id> \r\n    </customer_delete>\r\n  </soap:Body>\r\n</soap:Envelope>\r\n",
 							"options": {
 								"raw": {
 									"language": "xml"
@@ -383,73 +855,73 @@
 							]
 						}
 					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "xml",
-					"header": [
+					"response": [
 						{
-							"key": "Date",
-							"value": "Sat, 05 Aug 2023 09:41:31 GMT"
-						},
-						{
-							"key": "Server",
-							"value": "WSGIServer/0.2 CPython/3.11.3"
-						},
-						{
-							"key": "Content-Type",
-							"value": "text/xml; charset=utf-8"
-						},
-						{
-							"key": "Content-Length",
-							"value": "480"
-						}
-					],
-					"cookie": [],
-					"body": "<?xml version='1.0' encoding='UTF-8'?>\n<soap11env:Envelope xmlns:soap11env=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:tns=\"python.soap.example\" xmlns:s0=\"app.models\">\n    <soap11env:Body>\n        <tns:customer_create_serviceResponse>\n            <tns:customer_create_serviceResult>\n                <s0:uid>1</s0:uid>\n                <s0:name>MCI</s0:name>\n                <s0:number>0990554677</s0:number>\n                <s0:customer_id>3</s0:customer_id>\n            </tns:customer_create_serviceResult>\n        </tns:customer_create_serviceResponse>\n    </soap11env:Body>\n</soap11env:Envelope>"
-				}
-			]
-		},
-		{
-			"name": "service get by customer id",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<soap:Envelope xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">\r\n  <soap:Body>\r\n    <customer_get_service_list xmlns=\"python.soap.example\">\r\n        <customer_id>3</customer_id>  \r\n    </customer_get_service_list>\r\n  </soap:Body>\r\n</soap:Envelope>\r\n",
-					"options": {
-						"raw": {
-							"language": "xml"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:8000/?wsdl",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8000",
-					"path": [
-						""
-					],
-					"query": [
-						{
-							"key": "wsdl",
-							"value": null
+							"name": "customers create",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<soap:Envelope xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">\r\n  <soap:Body>\r\n    <customer_create xmlns=\"python.soap.example\">\r\n        <name>Chandler</name>\r\n        <family>Bing</family>\r\n        <national_code>0054778542</national_code>\r\n        <father_name> Arthur Coleman-Schwimmer </father_name>\r\n        <certificate_number>854</certificate_number>\r\n        <birthday>1969-06-19</birthday>\r\n        <address>Williamstown, Massachusetts, Vereinigte Staaten U.S.</address>\r\n    </customer_create>\r\n  </soap:Body>\r\n</soap:Envelope>\r\n",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8000/?wsdl",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										""
+									],
+									"query": [
+										{
+											"key": "wsdl",
+											"value": null
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "xml",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Sat, 05 Aug 2023 09:37:29 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.11.3"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/xml; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "697"
+								}
+							],
+							"cookie": [],
+							"body": "<?xml version='1.0' encoding='UTF-8'?>\n<soap11env:Envelope xmlns:soap11env=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:tns=\"python.soap.example\" xmlns:s0=\"app.models\">\n    <soap11env:Body>\n        <tns:customer_createResponse>\n            <tns:customer_createResult>\n                <s0:uid>3</s0:uid>\n                <s0:name>Chandler</s0:name>\n                <s0:family>Bing</s0:family>\n                <s0:national_code>0054778542</s0:national_code>\n                <s0:father_name> Arthur Coleman-Schwimmer </s0:father_name>\n                <s0:certificate_number>854</s0:certificate_number>\n                <s0:birthday>1969-06-19</s0:birthday>\n                <s0:address>Williamstown, Massachusetts, Vereinigte Staaten U.S.</s0:address>\n                <s0:services/>\n            </tns:customer_createResult>\n        </tns:customer_createResponse>\n    </soap11env:Body>\n</soap11env:Envelope>"
 						}
 					]
-				}
-			},
-			"response": [
+				},
 				{
-					"name": "service get by customer id",
-					"originalRequest": {
+					"name": "Service Get By Customer Id",
+					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<soap:Envelope xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">\r\n  <soap:Body>\r\n    <customer_get_service_list xmlns=\"python.soap.example\">\r\n        <customer_id>3</customer_id>  \r\n    </customer_get_service_list>\r\n  </soap:Body>\r\n</soap:Envelope>\r\n",
+							"raw": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<soap:Envelope xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">\r\n  <soap:Body>\r\n    <customer_get_service_list xmlns=\"python.soap.example\">\r\n        <customer_id>1</customer_id>  \r\n    </customer_get_service_list>\r\n  </soap:Body>\r\n</soap:Envelope>\r\n",
 							"options": {
 								"raw": {
 									"language": "xml"
@@ -474,29 +946,64 @@
 							]
 						}
 					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "xml",
-					"header": [
+					"response": [
 						{
-							"key": "Date",
-							"value": "Sun, 30 Jul 2023 22:25:01 GMT"
-						},
-						{
-							"key": "Server",
-							"value": "WSGIServer/0.2 CPython/3.10.6"
-						},
-						{
-							"key": "Content-Type",
-							"value": "text/xml; charset=utf-8"
-						},
-						{
-							"key": "Content-Length",
-							"value": "675"
+							"name": "service get by customer id",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<soap:Envelope xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">\r\n  <soap:Body>\r\n    <customer_get_service_list xmlns=\"python.soap.example\">\r\n        <customer_id>3</customer_id>  \r\n    </customer_get_service_list>\r\n  </soap:Body>\r\n</soap:Envelope>\r\n",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8000/?wsdl",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										""
+									],
+									"query": [
+										{
+											"key": "wsdl",
+											"value": null
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "xml",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Sun, 30 Jul 2023 22:25:01 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.10.6"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/xml; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "675"
+								}
+							],
+							"cookie": [],
+							"body": "<?xml version='1.0' encoding='UTF-8'?>\n<soap11env:Envelope xmlns:soap11env=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:tns=\"python.soap.example\" xmlns:s0=\"app.models\">\n    <soap11env:Body>\n        <tns:customer_get_service_listResponse>\n            <tns:customer_get_service_listResult>\n                <s0:ServiceModel>\n                    <s0:uid>1</s0:uid>\n                    <s0:name>mci</s0:name>\n                    <s0:number>0914598234</s0:number>\n                    <s0:customer_id>3</s0:customer_id>\n                </s0:ServiceModel>\n                <s0:ServiceModel>\n                    <s0:uid>2</s0:uid>\n                    <s0:name>shatel mobile</s0:name>\n                    <s0:number>0998349283</s0:number>\n                    <s0:customer_id>3</s0:customer_id>\n                </s0:ServiceModel>\n            </tns:customer_get_service_listResult>\n        </tns:customer_get_service_listResponse>\n    </soap11env:Body>\n</soap11env:Envelope>"
 						}
-					],
-					"cookie": [],
-					"body": "<?xml version='1.0' encoding='UTF-8'?>\n<soap11env:Envelope xmlns:soap11env=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:tns=\"python.soap.example\" xmlns:s0=\"app.models\">\n    <soap11env:Body>\n        <tns:customer_get_service_listResponse>\n            <tns:customer_get_service_listResult>\n                <s0:ServiceModel>\n                    <s0:uid>1</s0:uid>\n                    <s0:name>mci</s0:name>\n                    <s0:number>0914598234</s0:number>\n                    <s0:customer_id>3</s0:customer_id>\n                </s0:ServiceModel>\n                <s0:ServiceModel>\n                    <s0:uid>2</s0:uid>\n                    <s0:name>shatel mobile</s0:name>\n                    <s0:number>0998349283</s0:number>\n                    <s0:customer_id>3</s0:customer_id>\n                </s0:ServiceModel>\n            </tns:customer_get_service_listResult>\n        </tns:customer_get_service_listResponse>\n    </soap11env:Body>\n</soap11env:Envelope>"
+					]
 				}
 			]
 		}
