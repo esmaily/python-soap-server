@@ -1,0 +1,52 @@
+{
+  "customers": [
+      {
+          "address": "Williamstown, Massachusetts, Vereinigte Staaten U.S.",
+          "birthday": "1969-06-19",
+          "certificate_number": "854",
+          "family": "Bing",
+          "father_name": " Arthur Coleman-Schwimmer ",
+          "id": 1,
+          "name": "Chandler",
+          "national_code": "0054778542",
+          "services": []
+      },
+      {
+          "address": "Williamstown, Massachusetts, Vereinigte Staaten U.S.",
+          "birthday": "1969-06-19",
+          "certificate_number": "854",
+          "family": "Galler",
+          "father_name": " Arthur Coleman-Schwimmer ",
+          "id": 2,
+          "name": "Ros",
+          "national_code": "0054778542",
+          "services": []
+      }
+  ],
+  "services": [
+      {
+          "customer_id": "1",
+          "id": 1,
+          "name": "IRANCELL",
+          "number": "0998349283"
+      },
+      {
+          "customer_id": "1",
+          "id": 2,
+          "name": "mci",
+          "number": "0998349283"
+      },
+      {
+          "customer_id": "1",
+          "id": 3,
+          "name": "right",
+          "number": "09145985243"
+      },
+      {
+          "customer_id": "2",
+          "id": 5,
+          "name": "MCI",
+          "number": "09905137677"
+      }
+  ]
+}
