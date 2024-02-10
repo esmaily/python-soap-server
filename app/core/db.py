@@ -113,20 +113,20 @@ class JsonDB(Orm):
 
     def update(self, model_id: int, model_data: dict):
         data = self.raw_get_all()
-        indices = [index for (index, item) in enumerate(data["customers"]) if item["id"] == int(model_id)]
+        indices = [index for (index, item) in enumerate(data[self.model.__tablename__]) if item["id"] == int(model_id)]
         if not indices:
             return None
         for key in model_data:
-            data["customers"][indices[0]][key] = model_data[key]
+            data[self.model.__tablename__][indices[0]][key] = model_data[key]
         self.__write_in_file(data)
         return self.get_by_id(model_id)
 
     def destroy(self, model_id: int):
         data = self.raw_get_all()
-        indices = [index for (index, item) in enumerate(data["customers"]) if item["id"] == int(model_id)]
+        indices = [index for (index, item) in enumerate(data[self.model.__tablename__]) if item["id"] == int(model_id)]
         if not indices:
             return None
-        del data["customers"][indices[0]]
+        del data[self.model.__tablename__][indices[0]]
 
         self.__write_in_file(data)
         return True
