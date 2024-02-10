@@ -101,9 +101,33 @@ class CustomerController(ServiceBase):
 
 class ServiceController(ServiceBase):
 
+    @rpc(Unicode, Unicode(max_len=150), Unicode(max_len=11), _returns=ServiceSchema)
+    def service_create(ctx, customer_id, name, number):
+            """Docstrings for   service create.
+
+                @param customer_id the service customer_id
+                @param name the service name
+                @param number the service number
+
+            @return the completed array
+            """
+            payload = {
+                "customer_id": customer_id,
+                "name": name,
+                "number": number
+            }
+            customer = customer_repo.get_by_id(int(customer_id))
+            services = service_repo.get_by_customer(customer_id)
+            validator = ServiceCreateValidation()
+            validator.is_valid({
+                "services": services,
+                "customer": customer
+            })
+            new_service = service_repo.store(payload)
+            return new_service
     @rpc(Unicode(values=["ASC", "DESC"]), _returns=Array(ServiceSchema))
     def service_get_list(ctx, order_by="ASC"):
-        """Docstrings for customer service in the wsdl.
+        """Docstrings for  service list in the wsdl.
 
         @return the completed array
         """
@@ -112,26 +136,27 @@ class ServiceController(ServiceBase):
         return items
 
     @rpc(Unicode, _returns=ServiceSchema)
-    def service_get(ctx, customer_id):
-        """Docstrings for customer item in the wsdl.
+    def service_get(ctx, service_id):
+        """Docstrings for service item in the wsdl.
+        
+        @param service_id the customer 
 
-
-        @return the completed customer object
+        @return the completed service object
         """
 
-        customer = service_repo.get_by_id(int(customer_id))
+        service = service_repo.get_by_id(int(service_id))
 
-        return customer
+        return service
 
     @rpc(Unicode(), Unicode(), Unicode, _returns=ServiceSchema)
     def service_edit(ctx, service_id, name, number):
-        """Docstrings for create customer   in the wsdl.
+        """Docstrings for edit service   in the wsdl.
 
             @param service_id the customer id
             @param name the customer name
             @param number the customer number
 
-            @return the completed Customer Object
+            @return the completed service Object
          """
 
         payload = {
@@ -139,9 +164,9 @@ class ServiceController(ServiceBase):
             "number": number,
         }
 
-        customer = customer_repo.update(service_id, payload)
+        service = service_repo.update(service_id, payload)
 
-        return customer
+        return service
 
     @rpc(Unicode, _returns=Array(ServiceSchema))
     def customer_get_service_list(ctx, customer_id):
@@ -153,27 +178,17 @@ class ServiceController(ServiceBase):
         items = service_repo.get_by_customer(customer_id)
         return items
 
-    @rpc(Unicode, Unicode(max_len=150), Unicode(max_len=11), _returns=ServiceSchema)
-    def service_create(ctx, customer_id, name, number):
-        """Docstrings for customer services list by id in the wsdl.
+    @rpc(Unicode, _returns=ServiceSchema)
+    def service_delete(ctx, service_id):
+        """Docstrings for customer item in the wsdl.
 
-            @param customer_id the service customer_id
-            @param name the service name
-            @param number the service number
+        @param service_id the customer id
 
-        @return the completed array
+        @return the completed service object
         """
-        payload = {
-            "customer_id": customer_id,
-            "name": name,
-            "number": number
-        }
-        customer = customer_repo.get_by_id(int(customer_id))
-        services = service_repo.get_by_customer(customer_id)
-        validator = ServiceCreateValidation()
-        validator.is_valid({
-            "services": services,
-            "customer": customer
-        })
-        new_service = service_repo.store(payload)
-        return new_service
+       
+        service = service_repo.delete(int(service_id))
+
+        return service
+
+    
